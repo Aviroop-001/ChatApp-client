@@ -1,0 +1,33 @@
+@import '../../global.scss';
+
+.Login{
+    // border: red 1px solid;
+    text-align: center;
+    // margin: 1rem;
+    padding: 3rem;
+    font-size: 2.5rem;
+    font-family: 'Exo', sans-serif;
+    color: beige;
+    background-image: linear-gradient(rgba(36, 36, 36, 0.6),rgba(5, 5, 5, 0.8)) ,url('../../../public/assets/background2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    .loginCredentials{
+        // border: blue 1px solid;
+        padding: 1rem auto;
+        margin: 2rem auto;
+        height: 80vh;
+        width: 50vw;
+        backdrop-filter: blur(5px);
+        border-radius: 20px;
+        .fieldInput{
+            // border: green 2px solid;
+            margin: 0.5rem;
+            width: 90%;
+        }
+        .btn{
+            height: 3rem;
+            width: 6rem;
+        }
+    }
+}
