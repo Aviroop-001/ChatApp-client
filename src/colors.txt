@@ -1,0 +1,4 @@
+ lightest   -   #F0F5F9
+ light  -   #C9D6DF
+ dark   -   #52616B
+ darkest    -   #1E2022

@@ -1,9 +1,9 @@
 import { React, useContext } from 'react';
 import {Context} from '../../context/Context';
 import { Box } from '@chakra-ui/react';
-import NavBar from '../../components/NavBar/NavBar';
-import AllChats from '../../components/allChats/allChats';
-import SingleChat from '../../components/singleChat/singleChat';
+import NavBar from '../../components/NavBar';
+import AllChats from '../../components/allChats';
+import SingleChat from '../../components/singleChat';
 import './Chats.scss';
 
 const Chats = () => {

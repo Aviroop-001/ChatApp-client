@@ -24,9 +24,8 @@ export const ContextProvider = ({children}) =>{
         <Context.Provider value={{
             user : state.user,
             isFetching : state.isFetching,
-            error : state.error,
-            selectedChat, setselectedChat, allChats, setallChats,
-            dispatch,
+            error : state.error, dispatch,
+            selectedChat, setselectedChat, allChats, setallChats
         }}>
             {children}
         </Context.Provider>
