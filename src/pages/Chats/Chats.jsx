@@ -4,16 +4,21 @@ import { Box } from '@chakra-ui/react';
 import NavBar from '../../components/NavBar';
 import AllChats from '../../components/allChats';
 import SingleChat from '../../components/singleChat';
-import './Chats.scss';
 
 const Chats = () => {
 
   // const {user, dispatch} = useContext(Context);
 
   return (
-    <div className='Chats'>
+    <div className='Chats' color='#EEEDDE'
+    height='100vh'
+    width='100vw'>
         <NavBar/>
-        <Box className='chatBucket'>
+        <Box className='chatBucket' display='flex'
+        flexDirection='row'
+        justifyContent='center'
+        height='89vh'
+        padding='0.5rem'>
             <AllChats />
             <SingleChat />
         </Box>

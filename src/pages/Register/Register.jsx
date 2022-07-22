@@ -1,6 +1,5 @@
 import { React, useState } from 'react'
-import './Register.scss';
-import { Input,Button, VStack, FormControl, useToast } from '@chakra-ui/react'
+import { Input,Button, VStack, FormControl, useToast, Box, Text } from '@chakra-ui/react'
 import Axios from 'axios';
 import API from '../../api';
 import { AiFillFileAdd } from "react-icons/ai";
@@ -106,26 +105,51 @@ const Register = () => {
 
   //Component
   return (
-    <div className="Register">
-      REGISTER
-      <VStack className='registerCredentials' spacing='1px'>
+    <Box textAlign='center'
+    padding='1rem'
+    fontSize='2.5rem'
+    fontFamily='Exo'
+    color='#EEEDDE'
+    height='100vh'>
+      <Text margin='2rem auto'>REGISTER</Text>
+      <VStack className='registerCredentials' spacing='1px' padding='1rem auto'
+        margin='2rem auto'
+        height='70vh'
+        width='50vw'
+        display='flex'
+        justifyContent='space-evenly'>
         {/* USERNAME */}
         <FormControl className='fieldInput' isRequired>
-          <Input className='fieldInput' variant='flushed' type='text' size='md'
-            placeholder='Username' 
+          <Input className='fieldInput' variant='ghost' type='text' size='md'
+            placeholder='Username' colorScheme='#141E27'
+            backgroundColor='#203239'
+            color='EEEDDE'
+            fontWeight='bolder'
+            width='80%'
+            padding='1.5rem'
             onChange={(e)=>setusername(e.target.value)} />
         </FormControl>
         {/* E-MAIL */}
         <FormControl className='fieldInput' isRequired>
-          <Input className='fieldInput' variant='flushed' type='email' size='md'
-            placeholder='e-mail ID' 
+          <Input className='fieldInput' variant='ghost' type='email' size='md'
+            placeholder='e-mail ID' colorScheme='#141E27'
+            backgroundColor='#203239'
+            color='EEEDDE'
+            fontWeight='bolder'
+            width='80%'
+            padding='1.5rem'
             onChange={(e)=>setemail(e.target.value)} />
         </FormControl>
         {/* PASSWORD */}
         <FormControl className='fieldInput' isRequired>
-          <Input className='fieldInput' variant='flushed' size='md'
+          <Input className='fieldInput' variant='ghost' size='md'
             type= 'password'
-            placeholder='Password' 
+            placeholder='Password' colorScheme='#141E27'
+            backgroundColor='#203239'
+            color='EEEDDE'
+            fontWeight='bolder'
+            width='80%'
+            padding='1.5rem'
             onChange={(e)=>setpassword(e.target.value)} />
         </FormControl>
         {/* PROFILE PICTURE */}
@@ -140,13 +164,15 @@ const Register = () => {
             onChange={(e) => imageUploadHandler(e.target.files[0])} />
         </FormControl>
 
-        <Button className='btn' colorScheme='teal' size='md' variant='outline' 
+        <Button className='btn' colorScheme='#141E27' size='md' variant='outline' 
         type='submit'
+        height='3rem'
+        width='6rem'
         isLoading={loading}
         onClick={(e) => submitHandler(e)}> Register </Button>
 
       </VStack>
-    </div>
+    </Box>
   )
 }
 

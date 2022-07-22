@@ -6,26 +6,28 @@
     // margin: 1rem;
     padding: 3rem;
     font-size: 2.5rem;
+    height: 100vh;
     font-family: 'Exo', sans-serif;
-    color: beige;
-    background-image: linear-gradient(rgba(36, 36, 36, 0.6),rgba(5, 5, 5, 0.8)) ,url('../../../public/assets/background2.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     .loginCredentials{
         // border: blue 1px solid;
-        padding: 1rem auto;
+        background-color: #203239;
+        padding: auto 2rem;
         margin: 2rem auto;
-        height: 80vh;
+        height: 50vh;
         width: 50vw;
-        backdrop-filter: blur(5px);
-        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        border-radius: 10px;
         .fieldInput{
             // border: green 2px solid;
+            background-color: #203239;
+            color: #EEEDDE;
+            font-weight: bolder;
             margin: 0.5rem;
             width: 90%;
         }
         .btn{
+            margin: 2rem;
             height: 3rem;
             width: 6rem;
         }

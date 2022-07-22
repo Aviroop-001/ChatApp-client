@@ -8,9 +8,11 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import PersonIcon from "@mui/icons-material/Person";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import LogoutIcon from "@mui/icons-material/Logout";
 // import "./styles/NavBar.scss";
 import API from "../api";
+import { bgcolor } from "@mui/system";
 
 const NavBar = () => {
 
@@ -119,57 +121,46 @@ const NavBar = () => {
 
   //Component
   return (
-    <Box className="NavBar" color='black'>
+    <Box color='black' padding='auto 1rem'>
       <Box height='9vh' width='100vw' display='flex' flexDirection='row'
       justifyContent='space-between'
       alignItems='center'>
-
-        <Text fontSize={{ base: "1.5rem", md: "2rem" }} textAlign='center' fontFamily='sans-serif' padding='5px 2rem' letterSpacing='0.2rem' color='teal' textShadow='2px 1px rgb(144, 170, 170)'>
-        Radius
-        </Text>
-
-        <Box className="searchBtn"
-        display='flex'
-        justifyContent='center'
-        alignItems='center'
-        fontSize='1.5rem'
-        >
-        <Tooltip hasArrow label="Search Users" bg="teal.700">
-          <Button
-            variant="outline"
-            colorScheme="teal"
-            size="md"
-            width="20rem"
-            fontSize="1.3rem"
-            leftIcon={<SearchIcon />}
-            onClick={onOpenDrawer}
-          >
-            Search
-          </Button>
-        </Tooltip>
-        </Box>
-
-        <Box className="notifContainer"
-        width='170px'
+        <Avatar size="md" src={user.profilepic} backgroundColor='#203239' margin='auto 1rem' onClick={onOpen} cursor='pointer'/>
+        <Box width='180px'
         height='100%'
         marginRight='2rem'
         display='flex'
         justifyContent='space-evenly'
         flexDirection='row'
         alignItems='center'>
+          <Tooltip hasArrow label="Search Users" bg="#203239">
+          <Button
+            variant="ghost"
+            colorScheme="#EEEDDE"
+            size="md"
+            width="2rem"
+            fontSize="1.3rem"
+            onClick={onOpenDrawer}
+            backgroundColor='#141E27' _hover={{backgroundColor:'#203239'}}
+          >
+            <SearchIcon style={{ fill: '#EEEDDE' }} />
+          </Button>
+        </Tooltip>
         <Menu>
-          <MenuButton as={Button}>
-            <NotificationsIcon />
+          <Tooltip hasArrow label="Notifications" bg="#203239">
+          <MenuButton as={Button} backgroundColor='#141E27' _hover={{backgroundColor:'#203239'}} _active={{backgroundColor:'#203239'}}  border='none' width='2rem' padding='0'>
+            <NotificationsIcon style={{ fill: '#EEEDDE' }} />
           </MenuButton>
+          </Tooltip>
         </Menu>
         <Menu>
-          <MenuButton as={Button} rightIcon={<ArrowDropDownIcon />}>
-            <Avatar size="sm" cursor="pointer" />
+          <MenuButton as={Button} _hover={{backgroundColor:'#203239'}} _active={{backgroundColor:'#203239'}} backgroundColor='#141E27' width='2rem' padding='0' >
+            <MoreVertIcon style={{ fill: ' #EEEDDE' }} />
           </MenuButton>
-          <MenuList>
-            <MenuItem icon={<PersonIcon />} onClick={onOpen}>
-              My Profile
-            </MenuItem>
+          <MenuList backgroundColor=' #203239'>
+            <MenuItem icon={<PersonIcon style={{ fill: ' #EEEDDE' }} />} onClick={onOpen} backgroundColor=' #203239' _hover={{backgroundColor:'#141E27'}}>
+              <Text color=' #EEEDDE'>My Profile</Text>
+            </MenuItem >
             {/* POP-UP Modal */}
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
@@ -179,22 +170,22 @@ const NavBar = () => {
                   fontFamily="Poppins"
                   textAlign="center"
                   m="2rem"
+                  color='#141E27'
                 >
                   {user.username}
                 </ModalHeader>
-                <ModalCloseButton />
                 <ModalBody
                   display="flex"
                   flexDirection="row"
                   justifyContent="space-evenly"
                 >
-                  <Avatar size="xl" src={user.profilepic} />
-                  <Text fontSize="2xl" margin="auto 1px">
+                  <Avatar size="xl" src={user.profilepic} backgroundColor='#203239' />
+                  <Text fontSize="2xl" margin="auto 1px" color='#141E27'>
                     {user.email}
                   </Text>
                 </ModalBody>
                 <ModalFooter>
-                  <Button colorScheme="blue" mr={3} onClick={onClose}>
+                  <Button colorScheme="red" mr={3} onClick={onClose}>
                     Close
                   </Button>
                 </ModalFooter>
@@ -202,11 +193,13 @@ const NavBar = () => {
             </Modal>
             {/* POP-UP Modal ends */}
             <MenuDivider />
-            <MenuItem icon={<LogoutIcon />} onClick={logoutHandler}>
-              Logout
+            <MenuItem icon={<LogoutIcon style={{ fill:  '#EEEDDE' }} />} onClick={logoutHandler} backgroundColor=' #203239' _hover={{backgroundColor:'#141E27'}}>
+              <Text color=' #EEEDDE'>Logout</Text>
             </MenuItem>
             <MenuDivider />
-            <MenuItem icon={<AlternateEmailIcon />}>Contact Developer</MenuItem>
+            <MenuItem icon={<AlternateEmailIcon style={{ fill: ' #EEEDDE' }} />} backgroundColor=' #203239' _hover={{backgroundColor:'#141E27'}}>
+            <Text color=' #EEEDDE'>Contact Developer</Text>
+            </MenuItem>
           </MenuList>
         </Menu>
         </Box>

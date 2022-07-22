@@ -1,7 +1,6 @@
 import { React,useState,useContext } from 'react'
 import {Context} from "../../context/Context";
-import './Login.scss';
-import { Input,Button, VStack, FormControl, useToast} from '@chakra-ui/react'
+import { Input,Button, VStack, FormControl, useToast, Box, Text} from '@chakra-ui/react'
 import API from '../../api';
 
 const Login = () => {
@@ -65,29 +64,47 @@ const Login = () => {
 
   //Component
   return (
-    <div className='Login'>
-      LOGIN
-      <VStack className='loginCredentials' spacing='1px'>
+    <Box textAlign='center' padding='3rem' fontSize='2.5rem' height='100vh' fontFamily='exo'>
+      <Text margin='2rem auto'>LOGIN</Text>
+      <VStack className='loginCredentials' spacing='1px'
+        padding='auto 2rem'
+        margin='2rem auto'
+        height='50vh'
+        width='50vw'
+        display='flex'
+        justifyContent='space-evenly'
+        borderRadius='10px'>
         {/* USERNAME */}
-        <FormControl className='fieldInput' isRequired>
-          <Input className='fieldInput' variant='flushed' type='text' size='md'
+        <FormControl className='fieldInput' isRequired >
+          <Input className='fieldInput' variant='ghost' type='text' size='md'
             placeholder='Username' 
+            colorScheme='#141E27'
+            backgroundColor='#203239'
+            color='EEEDDE'
+            fontWeight='bolder'
+            width='80%'
+            padding='1.5rem'
             onChange={(e)=>setusername(e.target.value)} />
         </FormControl>
         {/* PASSWORD */}
         <FormControl className='fieldInput' isRequired>
-          <Input className='fieldInput' variant='flushed' size='md'
+          <Input className='fieldInput' variant='ghost' size='md'
             type= 'password'
             placeholder='Password' 
+            colorScheme='#141E27'
+            backgroundColor='#203239'
+            color='EEEDDE'
+            fontWeight='bolder'
+            width='80%'
+            padding='1.5rem'
             onChange={(e)=>setpassword(e.target.value)} />
         </FormControl>
 
-        <Button className='btn' colorScheme='teal' size='md' variant='outline'
-          type='submit'   isLoading={loading}
+        <Button className='btn' colorScheme='#141E27' size='md' variant='outline' type='submit' isLoading={loading} margin='2rem' height='3rem' width='6rem'
           onClick={(e) => submitHandler(e)}> Login </Button>
 
       </VStack>
-    </div>
+    </Box>
   )
 }
 
