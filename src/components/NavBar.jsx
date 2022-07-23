@@ -205,28 +205,28 @@ const NavBar = () => {
         </Box>
       </Box>
       <div className="searchBar">
-        <Drawer
+        <Drawer 
           isOpen={isOpenDrawer}
           placement="top"
           onClose={onCloseDrawer}>
           <DrawerOverlay/>
-          <DrawerContent w='60vw' textAlign='center' m='0rem auto' borderRadius='0rem 0rem 1rem 1rem'>
+          <DrawerContent backgroundColor='#141E27' w='60vw' textAlign='center' m='0rem auto' borderRadius='0rem 0rem 1rem 1rem'>
             <DrawerCloseButton />
-            <DrawerHeader fontSize='2xl'>Search User</DrawerHeader>
+            <DrawerHeader fontSize='2xl' color='#EEEDDE'>Search User</DrawerHeader>
 
             <DrawerBody mb='1rem'>
               <Input placeholder="Search by username..." w='70%' autoFocus={true}
                 onChange={(e) => userSearchHandler(e.target.value)} />
             </DrawerBody>
             {loading ? (
-                <Progress size='xs' colorScheme="teal" w='70%' m='1rem auto' isIndeterminate />) :  
+                <Progress size='xs' colorScheme="blue" w='70%' m='1rem auto' isIndeterminate borderRadius='5px' />) :  
                 (searchResults?.map(targetUser =>(
                   <UserSearchListItem key={targetUser._id} targetUser={targetUser} chatAccessHandler={()=>chatAccessHandler(targetUser._id)} />
                 )))
             }
             <DrawerFooter>
               {/* <Button colorScheme="green" mr={2} variant="outline" onClick={userSearchHandler}>Search</Button> */}
-              <Button colorScheme='red' variant="outline" mr={3} onClick={onCloseDrawer}> Close </Button>
+              <Button color='#EEEDDE' backgroundColor='crimson' variant="outline" mr={3} onClick={onCloseDrawer} _active={{backgroundColor:'maroon'}} _hover={{backgroundColor:'maroon'}}> Close </Button>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>

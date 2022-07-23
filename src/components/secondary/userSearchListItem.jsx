@@ -8,9 +8,11 @@ const userSearchListItem = ( {targetUser, chatAccessHandler} ) => {
 
   return (
     <Box onClick={chatAccessHandler}
-    cursor='pointer' bg='teal' _hover={{background:'teal.500', color:'blue'}}
+    cursor='pointer'
+    bg='#EEEDDE' 
+    _hover={{background:'#E0DDAA', color:'blue'}}
     display="flex" flexDirection='row' justifyContent='space-evenly' textAlign='center'
-    color="black"
+    color="#EEEDDE"
     width='50%' m='0.1rem auto'
     borderRadius='5px'>
 
@@ -23,9 +25,9 @@ const userSearchListItem = ( {targetUser, chatAccessHandler} ) => {
       />
 
     <Box display='flex' flexDirection='column' margin='5px auto' w='70%' textAlign='left'>
-      <Text fontSize="xl" color='crimson'>{targetUser.username}</Text>
-      <Text fontSize="md" color='black'>
-        <b>Email : </b>
+      <Text fontSize="xl" color='#141E27' fontWeight='bold'>{targetUser.username}</Text>
+      <Text fontSize="md" color='#203239' fontStyle='italic'>
+        <b style={{color:'#203239', fontWeight:'light'}}>e-mail : </b>
         {targetUser.email}
       </Text>
     </Box>

@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
-import { Input,Button, VStack, FormControl, useToast, Box, Text } from '@chakra-ui/react'
+import { Input,Button, VStack, FormControl, useToast, Box, Text, Link } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom';
 import Axios from 'axios';
 import API from '../api';
 import { AiFillFileAdd } from "react-icons/ai";
@@ -114,7 +115,7 @@ const Register = () => {
       <Text margin='2rem auto'>REGISTER</Text>
       <VStack className='registerCredentials' spacing='1px' padding='1rem auto'
         margin='2rem auto'
-        height='70vh'
+        height='50vh'
         width='50vw'
         display='flex'
         justifyContent='space-evenly'>
@@ -172,6 +173,7 @@ const Register = () => {
         onClick={(e) => submitHandler(e)}> Register </Button>
 
       </VStack>
+      <Text fontSize='md'>Already a user? <Link as={ RouterLink } to='/login' color='blue.200'>login</Link> </Text>
     </Box>
   )
 }

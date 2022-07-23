@@ -1,6 +1,7 @@
 import { React,useState,useContext } from 'react'
 import {Context} from "../context/Context";
-import { Input,Button, VStack, FormControl, useToast, Box, Text} from '@chakra-ui/react'
+import { Input,Button, VStack, FormControl, useToast, Box, Text, Link} from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom';
 import API from '../api';
 
 const Login = () => {
@@ -69,7 +70,7 @@ const Login = () => {
       <VStack className='loginCredentials' spacing='1px'
         padding='auto 2rem'
         margin='2rem auto'
-        height='50vh'
+        height='35vh'
         width='50vw'
         display='flex'
         justifyContent='space-evenly'
@@ -104,6 +105,7 @@ const Login = () => {
           onClick={(e) => submitHandler(e)}> Login </Button>
 
       </VStack>
+      <Text fontSize='md'>New user? Register <Link as={ RouterLink } to='/register' color='blue.200'>here</Link> </Text>
     </Box>
   )
 }
