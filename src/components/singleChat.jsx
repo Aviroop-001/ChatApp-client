@@ -3,9 +3,13 @@ import { Context } from "../context/Context";
 import MessageRender from "./secondary/messageRender";
 import { Avatar, Box, Text, useToast, Progress, FormControl, Input, InputRightElement, Button } from "@chakra-ui/react";
 import SendIcon from '@mui/icons-material/Send';
-
+import { getReceiver } from '../logic/logics';
+import io from "socket.io-client";
 import API from "../api";
 import GIF from "../assets/4UxI.gif";
+
+const endPoint = "http://localhost:5000";
+var socket, selectedChatComp;
 
 const SingleChat = () => {
 
@@ -16,6 +20,7 @@ const SingleChat = () => {
   const [loading, setloading] = useState();
   const [selectedChatMessages, setselectedChatMessages] = useState([]);
   const [newMessage, setnewMessage] = useState("");
+  const [socketConnection, setsocketConnection] = useState(false);
 
   //Functions
   const fetchAllMessages = async() =>{
@@ -31,6 +36,7 @@ const SingleChat = () => {
       console.log('All messages fetched');
       setselectedChatMessages(data);
       setloading(false);
+      socket.emit('join chat', selectedChat._id);
     } catch (err) {
       toast({
         title:"Messages couldn't be fetched" ,
@@ -57,6 +63,7 @@ const SingleChat = () => {
             }
           });
           console.log("message sent");
+          socket.emit("new message", data);
           setselectedChatMessages([...selectedChatMessages, data]);
           setnewMessage("");
         } catch (err) {
@@ -85,26 +92,45 @@ const SingleChat = () => {
   useEffect(() => {
     fetchAllMessages();
     setnewMessage("");
+    selectedChatComp = selectedChat;
   }, [selectedChat])
+  
+  useEffect(() => {
+    socket = io(endPoint);
+    socket.emit("setup", user);
+    socket.on("connection", ()=> setsocketConnection(true));
+  }, []);
+
+  useEffect(() => {
+    socket.on("message received", (newMessageReceived)=>{
+      if(newMessageReceived.chat._id !== selectedChatComp._id){
+        //Notify
+      }
+      else{
+        setselectedChatMessages([...selectedChatMessages, newMessageReceived]);
+        
+      }
+    });
+  });
   
 
   const toast = useToast();
 
   return (
-    <Box display={{ base: selectedChat? "flex" : "none", md: "flex" }} flexDirection='column' alignItems='center' width={{ base: "100%", md: "70%" }} 
-    color='#1E2022' position='relative' backgroundColor='#F0F5F9'>
-      {selectedChat? <><Box display='flex' backgroundColor='#C9D6DF'
-      width='100%' height='4rem' padding='0.5rem 1rem'>
+    <Box display={{ base: selectedChat? "flex" : "none", md: "flex" }} flexDirection='column' alignItems='center' width={{ base: "100%", md: "70%" }} borderRadius='10px'
+    color='#1E2022' position='relative' backgroundColor='#0f2021' _hover={{border:'0.5px #EEEDDE solid'}}>
+      {selectedChat? <><Box display='flex' backgroundColor='#203239' color='#EEEDDE'
+      width='100%' height='4.5rem' padding='0.5rem 1rem'>
         <Avatar
         size="md"
         m='auto 1.5rem'
         cursor="pointer"
-        src={selectedChat.users[1].profilepic}
+        src={getReceiver(user,selectedChat.users).profilepic}
         />
         <Box display='flex' flexDirection='row' justifyContent='space-between' alignItems='center'
         width='80%' marginLeft='1rem'>
-          <Text fontSize='3xl' fontWeight='500'>{JSON.stringify(selectedChat.users[1].username).slice(1, -1) }</Text>
-          <Text color='#52616B' fontSize='md' fontWeight='400'>{JSON.stringify(selectedChat.users[1].email).slice(1, -1) }</Text>
+          <Text fontSize='3xl' fontWeight='500'>{JSON.stringify(getReceiver(user,selectedChat.users).username).slice(1, -1) }</Text>
+          <Text color='#E0DDAA' fontSize='md' fontWeight='400'>{JSON.stringify(getReceiver(user,selectedChat.users).email).slice(1, -1) }</Text>
         </Box>
       </Box>
       <Box height='85%' width='100%' margin='0.5rem' position='relative'>
@@ -113,14 +139,14 @@ const SingleChat = () => {
       </>
       : <Box height='60%' width='50%' margin='8rem auto' textAlign='center' display='flex' flexDirection='column' >
         <img src={GIF} alt="" style={{borderRadius:'2rem'}}/>
-        <Text fontSize='4xl' fontFamily='Roboto' color='teal.800'>Select a chat</Text>
+        <Text fontSize='4xl' fontFamily='Roboto' color='#E0DDAA'>Select a chat</Text>
       </Box>
       }
 
-      {selectedChat ? <FormControl position='absolute' bottom='5px' margin='0px auto' textAlign='center'>
+      {selectedChat ? <FormControl position='absolute' bottom='5px' margin='0px auto' textAlign='center' marginBottom='1rem'>
         <Input variant='outline' colorScheme='teal' size='lg'
          placeholder="Type message here" value={newMessage}
-         height='40px' width='90%' border='0.5px solid teal' borderRadius='0px'
+         height='40px' width='90%' border='0.5px solid teal' borderRadius='5px'
          onChange={(e) =>setnewMessage(e.target.value)} onKeyDown={(e) => sendNewMessageHandler(e)}/>
          {/* <Button width='13%' height='40px' bottom='5px' margin='0px auto' borderRadius='0px' 
          textAlign='center' backgroundColor='blackAlpha.300'outline='none' border='none' boxShadow='none' variant='solid'
@@ -128,7 +154,7 @@ const SingleChat = () => {
       </FormControl>
       : <Box display='none'></Box>}
 
-      { loading ? <Progress size='xs' isIndeterminate width='100%' h='2px' position='absolute' top='4rem'></Progress>
+      { loading ? <Progress size='xs' isIndeterminate width='100%' h='4px' colorScheme='blue' borderRadius='4px' position='absolute' top='4.5rem'></Progress>
       : <Box display='none'></Box> }
     </Box>
   )

@@ -14,15 +14,16 @@ const MessageRender = ({ selectedChatMessages }) => {
           <Text
             key={m._id}
             backgroundColor={
-              user._id === m.sender._id ? "blue.300" : "green.400"
+              user._id === m.sender._id ? "#bbedbd" : "#deafb2"
             }
             display="block"
-            margin="0.3rem 1rem"
+            margin="0.1rem 1rem"
             width="fit-content"
             maxWidth="75%"
+            color='black'
             alignSelf={user._id === m.sender._id ? "flex-end" : "flex start"}
             padding="0.3rem 1rem"
-            borderRadius="15px"
+            borderRadius="10px"
             textAlign="left"
           >
             {m.content}

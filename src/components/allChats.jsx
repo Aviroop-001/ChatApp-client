@@ -1,6 +1,7 @@
 import { React, useContext, useEffect, useState } from "react";
 import { Context } from "../context/Context";
 import { useToast, Box, VStack, StackDivider, Avatar, Text, Progress } from "@chakra-ui/react";
+import { getReceiver } from '../logic/logics';
 import API from "../api";
 
 const AllChats = () => {
@@ -44,43 +45,35 @@ const AllChats = () => {
   useEffect(() => {
     fetchAllChats();
   }, []);
-
   return (
     <Box display={{ base: selectedChat? "none" : "flex", md: "flex" }} flexDirection='column' alignItems='center' 
-    width={{ base: "100%", md: "30%" }}
-    color='blackAlpha.800'>
-        My Chats
-        <Box width='90%' h='100%'
+    width={{ base: "100%", md: "30%" }}>
+        <Box width='96%' h='100%' backgroundColor='#141E27' padding='0.5rem 0px'
         display='flex' flexDirection='column'>
-          {loading===false ?(<VStack
-            overflow='visible' overflowY='scroll'
-            // divider={<StackDivider borderColor='gray.200' />}
-            align='stretch'>
+          {loading===false ?(<VStack padding='0.5rem 0px'
+            overflow='visible' overflowY='scroll' height='100%' scrollBehavior='smooth'
+            >
             {
               allChats.map(c =>(
-                <Box key={c._id}
-                display='flex' minH='3.5rem' margin={{ base: '0.4rem 2rem', md: '0.4rem'}}
-                onClick={()=>setselectedChat(c)}
-                textAlign='center'
-                borderRadius='8px'
-                _active={{background:'teal.100', color:'blackAlpha.800'}}
-                 _hover={{background:'blackAlpha.100', color:'teal.800'}}>
+                <Box key={c._id} display='flex' minH='3.5rem'  width='90%'
+                onClick={()=>setselectedChat(c)} textAlign='center' borderRadius='4px' backgroundColor='#203239' _active={{background:'#141E27'}}
+                _hover={{boxShadow:'1px 1px 2px #E0DDAA', width:'93%'}}>
                   <Avatar
                   size={{ base: "md", md: "sm" }}
                   m='auto 1.5rem'
                   cursor="pointer"
-                  src={c.users[1].profilepic}
+                  src={getReceiver(user,c.users).profilepic}
                   />
                   <Box display='flex' textAlign='left' flexDirection='column'>
-                    <Text fontSize='lg' fontWeight='500'>
-                      {JSON.stringify(c.users[1].username).slice(1, -1)}
+                    <Text fontSize='lg' fontWeight='500' color='#EEEDDE'>
+                      {JSON.stringify(getReceiver(user,c.users).username).slice(1, -1)}
                     </Text>
-                    <Text fontSize='md' fontWeight='400'>Last message here</Text>
+                    <Text fontSize='md' fontWeight='400' color='#EEEDDE'>Last message</Text>
                   </Box>
                 </Box>
               ))
             }
-          </VStack>):(<Progress size='xs' colorScheme="teal" w='100%' m='1rem auto' isIndeterminate />)
+          </VStack>):(<Progress size='xs' colorScheme="blue" w='100%' m='1rem auto' isIndeterminate borderRadius='4px' />)
           }
         </Box>
     </Box>

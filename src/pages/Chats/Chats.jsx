@@ -17,8 +17,9 @@ const Chats = () => {
         <Box className='chatBucket' display='flex'
         flexDirection='row'
         justifyContent='center'
-        height='89vh'
-        padding='0.5rem'>
+        height='91vh'
+        padding='0.5rem'
+        paddingBottom='1rem'>
             <AllChats />
             <SingleChat />
         </Box>

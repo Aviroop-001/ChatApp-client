@@ -1,7 +1,7 @@
 import { React,useState,useContext } from 'react'
-import {Context} from "../../context/Context";
+import {Context} from "../context/Context";
 import { Input,Button, VStack, FormControl, useToast, Box, Text} from '@chakra-ui/react'
-import API from '../../api';
+import API from '../api';
 
 const Login = () => {
 

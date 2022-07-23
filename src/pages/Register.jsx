@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import { Input,Button, VStack, FormControl, useToast, Box, Text } from '@chakra-ui/react'
 import Axios from 'axios';
-import API from '../../api';
+import API from '../api';
 import { AiFillFileAdd } from "react-icons/ai";
 
 const Register = () => {
