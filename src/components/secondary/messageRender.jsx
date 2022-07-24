@@ -4,8 +4,7 @@ import { Context } from "../../context/Context";
 import ScrollableFeed from "react-scrollable-feed";
 
 const MessageRender = ({ selectedChatMessages }) => {
-  const { user, selectedChat, setselectedChat, allChats, setallChats } =
-    useContext(Context);
+  const {user} = useContext(Context);
 
   return (
     <ScrollableFeed forceScroll={true}>

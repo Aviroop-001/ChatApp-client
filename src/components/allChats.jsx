@@ -7,7 +7,7 @@ import API from "../api";
 const AllChats = () => {
 
   //Context API
-  const { user,selectedChat,setselectedChat,allChats,setallChats } = useContext(Context);
+  const { user,selectedChat,setselectedChat,allChats,setallChats,notifications,setnotifications } = useContext(Context);
   const [loading, setloading] = useState()
 
   //States
@@ -70,6 +70,13 @@ const AllChats = () => {
                     </Text>
                     <Text fontSize='md' fontWeight='400' color='#EEEDDE'>Last message</Text>
                   </Box>
+                  {/* FIXME: Display a red dot if notification is there for a particular chat */}
+                  { (notifications.includes(c))? (
+                    <Box height='10px' width='10px' backgroundColor='red'>a</Box>
+                    ) : (
+                      <Box display='none'></Box>
+                    )
+                  }
                 </Box>
               ))
             }

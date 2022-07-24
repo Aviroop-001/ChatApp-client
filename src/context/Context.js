@@ -14,6 +14,7 @@ export const ContextProvider = ({children}) =>{
     const [state, dispatch] = useReducer(Reducer, INITIAL_STATE);
     const [selectedChat, setselectedChat] = useState();
     const [allChats, setallChats] = useState([]);
+    const [notifications, setnotifications] = useState([]);
 
     useEffect(() => {
         localStorage.setItem("ChatCurrentUser", JSON.stringify(state.user));
@@ -25,7 +26,7 @@ export const ContextProvider = ({children}) =>{
             user : state.user,
             isFetching : state.isFetching,
             error : state.error, dispatch,
-            selectedChat, setselectedChat, allChats, setallChats
+            selectedChat, setselectedChat, allChats, setallChats, notifications,setnotifications
         }}>
             {children}
         </Context.Provider>

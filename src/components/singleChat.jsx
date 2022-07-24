@@ -14,7 +14,7 @@ var socket, selectedChatComp;
 const SingleChat = () => {
 
   //Context API
-  const { user, selectedChat,setselectedChat,allChats,setallChats } = useContext(Context);
+  const { user, selectedChat,setselectedChat,allChats,setallChats,notifications,setnotifications } = useContext(Context);
 
   //States
   const [loading, setloading] = useState();
@@ -103,8 +103,12 @@ const SingleChat = () => {
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived)=>{
-      if(newMessageReceived.chat._id !== selectedChatComp._id){
+      if(!selectedChatComp || (newMessageReceived.chat._id != selectedChatComp._id)){
         //Notify
+        if(!notifications.includes(newMessageReceived)){
+          setnotifications([...notifications, newMessageReceived]);
+          console.log(`New message notif from ${newMessageReceived.sender.username}`);
+        }
       }
       else{
         setselectedChatMessages([...selectedChatMessages, newMessageReceived]);
