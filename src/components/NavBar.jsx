@@ -126,7 +126,7 @@ const NavBar = () => {
       justifyContent='space-between'
       alignItems='center'>
         <Avatar size="md" src={user.profilepic} backgroundColor='#203239' margin='auto 1rem' onClick={onOpen} cursor='pointer'/>
-        <Box width='180px'
+        <Box width='100px'
         height='100%'
         marginRight='2rem'
         display='flex'
@@ -146,13 +146,6 @@ const NavBar = () => {
             <SearchIcon style={{ fill: '#EEEDDE' }} />
           </Button>
         </Tooltip>
-        <Menu>
-          <Tooltip hasArrow label="Notifications" bg="#203239">
-          <MenuButton as={Button} backgroundColor='#141E27' _hover={{backgroundColor:'#203239'}} _active={{backgroundColor:'#203239'}}  border='none' width='2rem' padding='0'>
-            <NotificationsIcon style={{ fill: '#EEEDDE' }} />
-          </MenuButton>
-          </Tooltip>
-        </Menu>
         <Menu>
           <MenuButton as={Button} _hover={{backgroundColor:'#203239'}} _active={{backgroundColor:'#203239'}} backgroundColor='#141E27' width='2rem' padding='0' >
             <MoreVertIcon style={{ fill: ' #EEEDDE' }} />

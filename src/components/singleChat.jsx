@@ -37,6 +37,11 @@ const SingleChat = () => {
       setselectedChatMessages(data);
       setloading(false);
       socket.emit('join chat', selectedChat._id);
+      //Removing notification if chat selected
+      var idx = notifications.indexOf(selectedChat._id);
+      if (idx !== -1) {
+        notifications.splice(idx, 1);
+      }
     } catch (err) {
       toast({
         title:"Messages couldn't be fetched" ,
@@ -90,6 +95,10 @@ const SingleChat = () => {
   }
 
   useEffect(() => {
+    localStorage.setItem('ChatNotifications', notifications);
+  }, [notifications])
+
+  useEffect(() => {
     fetchAllMessages();
     setnewMessage("");
     selectedChatComp = selectedChat;
@@ -105,8 +114,8 @@ const SingleChat = () => {
     socket.on("message received", (newMessageReceived)=>{
       if(!selectedChatComp || (newMessageReceived.chat._id != selectedChatComp._id)){
         //Notify
-        if(!notifications.includes(newMessageReceived)){
-          setnotifications([...notifications, newMessageReceived]);
+        if(!notifications.includes(newMessageReceived.chat._id)){
+          setnotifications([...notifications, newMessageReceived.chat._id]);
           console.log(`New message notif from ${newMessageReceived.sender.username}`);
         }
       }

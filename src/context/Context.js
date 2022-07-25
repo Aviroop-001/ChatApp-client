@@ -19,6 +19,13 @@ export const ContextProvider = ({children}) =>{
     useEffect(() => {
         localStorage.setItem("ChatCurrentUser", JSON.stringify(state.user));
     }, [state.user])
+
+    useEffect(() => {
+        if(localStorage.getItem('ChatNotifications') === null)
+            setnotifications([]);
+        else
+            setnotifications(localStorage.getItem('ChatNotifications'));
+    }, []);
     
 
     return (

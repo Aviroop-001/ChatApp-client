@@ -57,7 +57,8 @@ const AllChats = () => {
               allChats.map(c =>(
                 <Box key={c._id} display='flex' minH='3.5rem'  width='90%'
                 onClick={()=>setselectedChat(c)} textAlign='center' borderRadius='4px' backgroundColor='#203239' _active={{background:'#141E27'}}
-                _hover={{boxShadow:'1px 1px 2px #E0DDAA', width:'93%'}}>
+                _hover={{boxShadow:'1px 1px 2px #E0DDAA', width:'93%'}}
+                position='relative'>
                   <Avatar
                   size={{ base: "md", md: "sm" }}
                   m='auto 1.5rem'
@@ -71,8 +72,13 @@ const AllChats = () => {
                     <Text fontSize='md' fontWeight='400' color='#EEEDDE'>Last message</Text>
                   </Box>
                   {/* FIXME: Display a red dot if notification is there for a particular chat */}
-                  { (notifications.includes(c))? (
-                    <Box height='10px' width='10px' backgroundColor='red'>a</Box>
+                  { (notifications.includes(c._id))? (
+                    <Box height='8px' width='8px' backgroundColor='lime'
+                    borderRadius='10px' 
+                    position='absolute'
+                    right='10px'
+                    top='10px'
+                    ></Box>
                     ) : (
                       <Box display='none'></Box>
                     )
