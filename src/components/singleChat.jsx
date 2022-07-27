@@ -8,7 +8,7 @@ import io from "socket.io-client";
 import API from "../api";
 import GIF from "../assets/4UxI.gif";
 
-const endPoint = "http://localhost:5000";
+const endPoint = "https://aviroop-chatapp-api.herokuapp.com/";
 var socket, selectedChatComp;
 
 const SingleChat = () => {
