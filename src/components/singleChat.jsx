@@ -1,8 +1,9 @@
 import { React, useContext, useState, useEffect } from "react";
 import { Context } from "../context/Context";
 import MessageRender from "./secondary/messageRender";
-import { Avatar, Box, Text, useToast, Progress, FormControl, Input, InputRightElement, Button } from "@chakra-ui/react";
+import { Avatar, Box, Text, useToast, Progress, FormControl, Input, Button, Tooltip, InputRightElement, IconButton } from "@chakra-ui/react";
 import SendIcon from '@mui/icons-material/Send';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { getReceiver } from '../logic/logics';
 import io from "socket.io-client";
 import API from "../api";
@@ -55,6 +56,43 @@ const SingleChat = () => {
     }
   }
 
+  const sendNewMessageHandlerClick = async(e) =>{
+      if(newMessage){
+        const messageDetails= {'chatID': selectedChat._id, 'messageContent': newMessage};
+        try {
+          const { data } = await API.post('/messages', 
+          messageDetails, 
+          {
+            headers: {
+              'Authorization': `Bearer ${user.token}`
+            }
+          });
+          console.log("message sent");
+          socket.emit("new message", data);
+          setselectedChatMessages([...selectedChatMessages, data]);
+          setnewMessage("");
+        } catch (err) {
+          toast({
+            title:"Something went wrong :(" ,
+            status: "error" ,
+            duration: 4000 ,
+            isClosable: true,
+            position: "top",
+          });
+          console.log(err);
+        }
+      }
+      else{
+        toast({
+          title:"Message can't be empty!" ,
+          status: "error" ,
+          duration: 4000 ,
+          isClosable: true,
+          position: "top",
+        });
+      }
+  }
+
   const sendNewMessageHandler = async(e) =>{
     if (e.key === 'Enter') {
       if(newMessage){
@@ -94,6 +132,36 @@ const SingleChat = () => {
     }
   }
 
+  const chatDeleteHandler = async() =>{
+    try {
+      const response = await API.delete(`/chats/${selectedChat._id}`, 
+      {
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      });
+      setselectedChat(null);
+      console.log(response.data);
+      toast({
+        title:"Chat deleted!!!" ,
+        status: "success" ,
+        duration: 4000 ,
+        isClosable: true,
+        position: "top",
+      });
+      console.log("deleted Chat and Messages");
+    } catch (err) {
+      console.log(err);
+      toast({
+        title:"Something went wrong :(" ,
+        status: "error" ,
+        duration: 4000 ,
+        isClosable: true,
+        position: "top",
+      });
+    }
+  }
+
   useEffect(() => {
     localStorage.setItem('ChatNotifications', notifications);
   }, [notifications])
@@ -130,10 +198,10 @@ const SingleChat = () => {
   const toast = useToast();
 
   return (
-    <Box display={{ base: selectedChat? "flex" : "none", md: "flex" }} flexDirection='column' alignItems='center' width={{ base: "100%", md: "70%" }} borderRadius='10px'
-    color='#1E2022' position='relative' backgroundColor='#0f2021' _hover={{border:'0.5px #EEEDDE solid'}}>
+    <Box display={{ base: selectedChat? "flex" : "none", md: "flex" }} flexDirection='column' alignItems='center' width={{ base: "100%", md: "70%" }}
+    color='#1E2022' position='relative' backgroundColor='#0f2021'>
       {selectedChat? <><Box display='flex' backgroundColor='#203239' color='#EEEDDE'
-      width='100%' height='4.5rem' padding='0.5rem 1rem'>
+      width='100%' height='4.5rem' padding='0.5rem 1rem' alignItems='center'>
         <Avatar
         size="md"
         m='auto 1.5rem'
@@ -143,8 +211,23 @@ const SingleChat = () => {
         <Box display='flex' flexDirection='row' justifyContent='space-between' alignItems='center'
         width='80%' marginLeft='1rem'>
           <Text fontSize='3xl' fontWeight='500'>{JSON.stringify(getReceiver(user,selectedChat.users).username).slice(1, -1) }</Text>
-          <Text color='#E0DDAA' fontSize='md' fontWeight='400'>{JSON.stringify(getReceiver(user,selectedChat.users).email).slice(1, -1) }</Text>
+          <Text color='#E0DDAA' fontSize='md' fontWeight='400' marginRight='1rem'>{JSON.stringify(getReceiver(user,selectedChat.users).email).slice(1, -1) }</Text>
         </Box>
+        <Tooltip hasArrow label="Delete Chat" bg="crimson">
+          <Button
+          variant="ghost"
+          colorScheme="#EEEDDE"
+          size="sm"
+          fontSize="1.3rem"
+          padding='0'
+          backgroundColor='#203239'
+          _hover={{backgroundColor:'#203239'}}
+          _active={{backgroundColor:'pink.800'}}
+          onClick={chatDeleteHandler}
+          >
+            <DeleteIcon style={{ fill: 'crimson' }} />
+          </Button>
+        </Tooltip>
       </Box>
       <Box height='85%' width='100%' margin='0.5rem' position='relative'>
         <MessageRender selectedChatMessages={selectedChatMessages}/>
@@ -156,14 +239,19 @@ const SingleChat = () => {
       </Box>
       }
 
-      {selectedChat ? <FormControl position='absolute' bottom='5px' margin='0px auto' textAlign='center' marginBottom='1rem'>
+      {selectedChat ? <FormControl position='absolute' bottom='5px' margin='0px auto' textAlign='center' marginBottom='1rem' paddingTop='5px'>
         <Input variant='outline' colorScheme='teal' size='lg'
          placeholder="Type message here" value={newMessage}
-         height='40px' width='90%' border='0.5px solid teal' borderRadius='5px'
-         onChange={(e) =>setnewMessage(e.target.value)} onKeyDown={(e) => sendNewMessageHandler(e)}/>
-         {/* <Button width='13%' height='40px' bottom='5px' margin='0px auto' borderRadius='0px' 
-         textAlign='center' backgroundColor='blackAlpha.300'outline='none' border='none' boxShadow='none' variant='solid'
-         onClick={(e) => sendNewMessageHandler(e)}> SEND </Button> */}
+         height='40px' width='80%' border='0.5px solid teal' borderRadius='5px'
+         onChange={(e) =>setnewMessage(e.target.value)} 
+         onKeyDown={(e) => sendNewMessageHandler(e)}/>
+         <Button width='10%' height='38px' bottom='5px' margin='auto 0px' borderRadius='10px' 
+         textAlign='center' colorScheme='lime.900' variant='ghost'
+         marginLeft='2px'
+         _hover={{backgroundColor:'lime', color:'black'}}
+         _active={{backgroundColor:'green.600', color:'black'}}
+         onClick={(e) => sendNewMessageHandlerClick(e)}
+         > SEND </Button>
       </FormControl>
       : <Box display='none'></Box>}
 

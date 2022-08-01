@@ -18,7 +18,7 @@ const Chats = () => {
         flexDirection='row'
         justifyContent='center'
         height='91vh'
-        padding='0.5rem'
+        // padding='0.5rem'
         paddingBottom='1rem'>
             <AllChats />
             <SingleChat />

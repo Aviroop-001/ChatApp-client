@@ -48,25 +48,26 @@ const AllChats = () => {
   return (
     <Box display={{ base: selectedChat? "none" : "flex", md: "flex" }} flexDirection='column' alignItems='center' 
     width={{ base: "100%", md: "30%" }}>
-        <Box width='96%' h='100%' backgroundColor='#141E27' padding='0.5rem 0px'
+        <Box width='100%' h='100%' backgroundColor='#141E27' padding='0.5rem 0px'
         display='flex' flexDirection='column'>
           {loading===false ?(<VStack padding='0.5rem 0px'
             overflow='visible' overflowY='scroll' height='100%' scrollBehavior='smooth'
             >
             {
               allChats.map(c =>(
-                <Box key={c._id} display='flex' minH='3.5rem'  width='90%'
-                onClick={()=>setselectedChat(c)} textAlign='center' borderRadius='4px' backgroundColor='#203239' _active={{background:'#141E27'}}
+                <Box key={c._id} display='flex' minH='3.5rem'  width='95%'
+                onClick={()=>setselectedChat(c)} textAlign='center' borderRadius='0px' backgroundColor='#203239' _active={{background:'#141E27'}}
                 _hover={{boxShadow:'1px 1px 2px #E0DDAA', width:'93%'}}
-                position='relative'>
+                position='relative'
+                padding='0.3rem 0px'>
                   <Avatar
-                  size={{ base: "md", md: "sm" }}
+                  size={{ base: "md", md: "md" }}
                   m='auto 1.5rem'
                   cursor="pointer"
                   src={getReceiver(user,c.users).profilepic}
                   />
                   <Box display='flex' textAlign='left' flexDirection='column'>
-                    <Text fontSize='lg' fontWeight='500' color='#EEEDDE'>
+                    <Text fontSize='xl' fontWeight='500' color='#EEEDDE'>
                       {JSON.stringify(getReceiver(user,c.users).username).slice(1, -1)}
                     </Text>
                     <Text fontSize='md' fontWeight='400' color='#EEEDDE'>Last message</Text>
@@ -86,7 +87,7 @@ const AllChats = () => {
                 </Box>
               ))
             }
-          </VStack>):(<Progress size='xs' colorScheme="blue" w='100%' m='1rem auto' isIndeterminate borderRadius='4px' />)
+          </VStack>):(<Progress size='xs' colorScheme="blue" w='90%' m='1rem auto' isIndeterminate borderRadius='4px' />)
           }
         </Box>
     </Box>

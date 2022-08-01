@@ -5,10 +5,10 @@
 }
 ::-webkit-scrollbar {
   width: 4px;
-  background: #E0DDAA;
+  background: #393f49;
   border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #141E27;
+  background: #E0DDAA;
   border-radius: 5px;
 }

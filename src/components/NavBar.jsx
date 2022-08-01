@@ -4,15 +4,12 @@ import { React, useContext, useState, useEffect } from "react";
 import { Context } from "../context/Context";
 import UserSearchListItem from "./secondary/userSearchListItem";
 import SearchIcon from "@mui/icons-material/Search";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import PersonIcon from "@mui/icons-material/Person";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import LogoutIcon from "@mui/icons-material/Logout";
 // import "./styles/NavBar.scss";
 import API from "../api";
-import { bgcolor } from "@mui/system";
 
 const NavBar = () => {
 
@@ -185,11 +182,9 @@ const NavBar = () => {
               </ModalContent>
             </Modal>
             {/* POP-UP Modal ends */}
-            <MenuDivider />
             <MenuItem icon={<LogoutIcon style={{ fill:  '#EEEDDE' }} />} onClick={logoutHandler} backgroundColor=' #203239' _hover={{backgroundColor:'#141E27'}}>
               <Text color=' #EEEDDE'>Logout</Text>
             </MenuItem>
-            <MenuDivider />
             <MenuItem icon={<AlternateEmailIcon style={{ fill: ' #EEEDDE' }} />} backgroundColor=' #203239' _hover={{backgroundColor:'#141E27'}}>
             <Text color=' #EEEDDE'>Contact Developer</Text>
             </MenuItem>
