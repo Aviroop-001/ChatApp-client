@@ -8,9 +8,9 @@ const AllChats = () => {
 
   //Context API
   const { user,selectedChat,setselectedChat,allChats,setallChats,notifications,setnotifications } = useContext(Context);
-  const [loading, setloading] = useState()
-
+  
   //States
+  const [loading, setloading] = useState()
 
   //Functions
 
@@ -45,10 +45,11 @@ const AllChats = () => {
   useEffect(() => {
     fetchAllChats();
   }, []);
+
   return (
     <Box display={{ base: selectedChat? "none" : "flex", md: "flex" }} flexDirection='column' alignItems='center' 
     width={{ base: "100%", md: "30%" }}>
-        <Box width='100%' h='100%' backgroundColor='#141E27' padding='0.5rem 0px'
+        <Box width='100%' h='100%' backgroundColor='#141E27' padding='2px 0px'
         display='flex' flexDirection='column'>
           {loading===false ?(<VStack padding='0.5rem 0px'
             overflow='visible' overflowY='scroll' height='100%' scrollBehavior='smooth'
@@ -70,7 +71,7 @@ const AllChats = () => {
                     <Text fontSize='xl' fontWeight='500' color='#EEEDDE'>
                       {JSON.stringify(getReceiver(user,c.users).username).slice(1, -1)}
                     </Text>
-                    <Text fontSize='md' fontWeight='400' color='#EEEDDE'>Last message</Text>
+                    <Text fontSize='md' fontWeight='400' color='#EEEDDE'>{c.latestMessage.content}</Text>
                   </Box>
                   {/* FIXME: Display a red dot if notification is there for a particular chat */}
                   { (notifications.includes(c._id))? (

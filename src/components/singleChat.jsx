@@ -1,8 +1,7 @@
 import { React, useContext, useState, useEffect } from "react";
 import { Context } from "../context/Context";
 import MessageRender from "./secondary/messageRender";
-import { Avatar, Box, Text, useToast, Progress, FormControl, Input, Button, Tooltip, InputRightElement, IconButton } from "@chakra-ui/react";
-import SendIcon from '@mui/icons-material/Send';
+import { Avatar, Box, Text, useToast, Progress, FormControl, Input, Button, Tooltip} from "@chakra-ui/react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { getReceiver } from '../logic/logics';
 import io from "socket.io-client";
@@ -163,6 +162,11 @@ const SingleChat = () => {
   }
 
   useEffect(() => {
+    
+  }, [selectedChatMessages])
+  
+
+  useEffect(() => {
     localStorage.setItem('ChatNotifications', notifications);
   }, [notifications])
 
@@ -198,7 +202,7 @@ const SingleChat = () => {
   const toast = useToast();
 
   return (
-    <Box display={{ base: selectedChat? "flex" : "none", md: "flex" }} flexDirection='column' alignItems='center' width={{ base: "100%", md: "70%" }}
+    <Box display={{ base: selectedChat? "flex" : "none", md: "flex" }} flexDirection='column' alignItems='center' width={{ base: "100%", md: "70%" }} height='100%' marginTop='10px'
     color='#1E2022' position='relative' backgroundColor='#0f2021'>
       {selectedChat? <><Box display='flex' backgroundColor='#203239' color='#EEEDDE'
       width='100%' height='4.5rem' padding='0.5rem 1rem' alignItems='center'>
