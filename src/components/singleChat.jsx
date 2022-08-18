@@ -3,6 +3,7 @@ import { Context } from "../context/Context";
 import MessageRender from "./secondary/messageRender";
 import { Avatar, Box, Text, useToast, Progress, FormControl, Input, Button, Tooltip} from "@chakra-ui/react";
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { getReceiver } from '../logic/logics';
 import io from "socket.io-client";
 import API from "../api";
@@ -161,6 +162,11 @@ const SingleChat = () => {
     }
   }
 
+  const getBackToAllChats = async() =>{
+    setselectedChat();
+    console.log("unselect selectedChat");
+  }
+
   useEffect(() => {
     
   }, [selectedChatMessages])
@@ -204,6 +210,9 @@ const SingleChat = () => {
   return (
     <Box display={{ base: selectedChat? "flex" : "none", md: "flex" }} flexDirection='column' alignItems='center' width={{ base: "100%", md: "70%" }} height='100%' marginTop='10px'
     color='#1E2022' position='relative' backgroundColor='#0f2021'>
+      <Button background='teal.800' display={{ base:"flex", md: "none" }} colorScheme='green' position='absolute' top='5rem' left='0' zIndex='9' padding='0' margin='0.5rem' _hover={{backgroundColor:'teal.900'}} onClick={getBackToAllChats}>
+        <ArrowBackIcon style={{ fill: 'lime', fontSize:'1.6rem' }}/>
+      </Button>
       {selectedChat? <><Box display='flex' backgroundColor='#203239' color='#EEEDDE'
       width='100%' height='4.5rem' padding='0.5rem 1rem' alignItems='center'>
         <Avatar
