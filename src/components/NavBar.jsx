@@ -203,7 +203,7 @@ const NavBar = () => {
             <DrawerHeader fontSize='2xl' color='#EEEDDE'>Search User</DrawerHeader>
 
             <DrawerBody mb='1rem'>
-              <Input placeholder="Search by username..." w='70%' autoFocus={true}
+              <Input placeholder="@username" w='70%' autoFocus={true}
                 onChange={(e) => userSearchHandler(e.target.value)} />
             </DrawerBody>
             {loading ? (
@@ -214,6 +214,7 @@ const NavBar = () => {
             }
             <DrawerFooter>
               {/* <Button colorScheme="green" mr={2} variant="outline" onClick={userSearchHandler}>Search</Button> */}
+              <Button color='#EEEDDE' backgroundColor='green.700' variant="outline" mr={3} _active={{backgroundColor:'green'}} _hover={{backgroundColor:'green.900'}}>Connect</Button>
               <Button color='#EEEDDE' backgroundColor='crimson' variant="outline" mr={3} onClick={onCloseDrawer} _active={{backgroundColor:'maroon'}} _hover={{backgroundColor:'maroon'}}> Close </Button>
             </DrawerFooter>
           </DrawerContent>
