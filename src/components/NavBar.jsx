@@ -25,9 +25,10 @@ const NavBar = () => {
   } = useDisclosure();    //Renaming variables for Drawer
 
   //States
-  const [searchResults, setsearchResults] = useState();
+  const [searchResults, setsearchResults] = useState([]);
   const [loading, setloading] = useState();
-  const [chatLoading, setchatLoading] = useState()
+  const [chatLoading, setchatLoading] = useState();
+  const [searchInput, setsearchInput] = useState();
 
   //Functions
   const toast = useToast();
@@ -68,6 +69,7 @@ const NavBar = () => {
           }
         );
         setsearchResults(resultMatch.data);
+        console.log(resultMatch.data);
         setloading(false);
       } catch (error) {
         toast({
@@ -130,6 +132,8 @@ const NavBar = () => {
         justifyContent='space-evenly'
         flexDirection='row'
         alignItems='center'>
+
+          {/* Search Icon ----------------------------------- */}
           <Tooltip hasArrow label="Search Users" bg="#203239">
           <Button
             variant="ghost"
@@ -143,6 +147,8 @@ const NavBar = () => {
             <SearchIcon style={{ fill: '#EEEDDE' }} />
           </Button>
         </Tooltip>
+
+        {/* Drop Down Menu -------------------------------------- */}
         <Menu>
           <MenuButton as={Button} _hover={{backgroundColor:'#203239'}} _active={{backgroundColor:'#203239'}} backgroundColor='#141E27' width='2rem' padding='0' >
             <MoreVertIcon style={{ fill: ' #EEEDDE' }} />
@@ -190,6 +196,7 @@ const NavBar = () => {
             </MenuItem>
           </MenuList>
         </Menu>
+
         </Box>
       </Box>
       <div className="searchBar">
@@ -198,23 +205,26 @@ const NavBar = () => {
           placement="top"
           onClose={onCloseDrawer}>
           <DrawerOverlay/>
-          <DrawerContent backgroundColor='#141E27' w='60vw' textAlign='center' m='0rem auto' borderRadius='0rem 0rem 1rem 1rem'>
+          <DrawerContent backgroundColor='#141E27' w='55vw' textAlign='center' m='0rem auto' borderRadius='1rem' boxShadow='grey 2px 2px 3px' marginTop='2rem' marginRight='5rem' padding='1rem'>
             <DrawerCloseButton />
             <DrawerHeader fontSize='2xl' color='#EEEDDE'>Search User</DrawerHeader>
 
             <DrawerBody mb='1rem'>
-              <Input placeholder="@username" w='70%' autoFocus={true}
+            @
+              <Input placeholder="username" w='65%' autoFocus={true} marginLeft='0.4rem'
                 onChange={(e) => userSearchHandler(e.target.value)} />
             </DrawerBody>
+            {/* TODO: Remove the searchresult list that we used to have!!!!! */}
             {loading ? (
-                <Progress size='xs' colorScheme="blue" w='70%' m='1rem auto' isIndeterminate borderRadius='5px' />) :  
-                (searchResults?.map(targetUser =>(
-                  <UserSearchListItem key={targetUser._id} targetUser={targetUser} chatAccessHandler={()=>chatAccessHandler(targetUser._id)} />
-                )))
+                <Progress size='xs' colorScheme="blue" w='70%' m='1rem auto' isIndeterminate borderRadius='5px' />) 
+                :(searchResults.length!=0 ? <Text> User Found </Text> : <Text>No user</Text>)
+                // (searchResults? searchResults.map(targetUser =>(
+                //   <UserSearchListItem key={targetUser._id} targetUser={targetUser} chatAccessHandler={()=>chatAccessHandler(targetUser._id)} />
+                // )): <Text> Hello </Text>)
             }
             <DrawerFooter>
-              {/* <Button colorScheme="green" mr={2} variant="outline" onClick={userSearchHandler}>Search</Button> */}
-              <Button color='#EEEDDE' backgroundColor='green.700' variant="outline" mr={3} _active={{backgroundColor:'green'}} _hover={{backgroundColor:'green.900'}}>Connect</Button>
+              <Button color='#EEEDDE' backgroundColor='green.700' variant="outline" mr={3} _active={{backgroundColor:'green'}} _hover={{backgroundColor:'green.900'}} 
+              onClick={(e)=> chatAccessHandler(searchResults[0]._id)}>Connect</Button>
               <Button color='#EEEDDE' backgroundColor='crimson' variant="outline" mr={3} onClick={onCloseDrawer} _active={{backgroundColor:'maroon'}} _hover={{backgroundColor:'maroon'}}> Close </Button>
             </DrawerFooter>
           </DrawerContent>

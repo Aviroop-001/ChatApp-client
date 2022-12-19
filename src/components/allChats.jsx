@@ -55,7 +55,7 @@ const AllChats = () => {
             overflow='visible' overflowY='scroll' height='100%' scrollBehavior='smooth'
             >
             {
-              allChats.map(c =>(
+              allChats?.map(c =>(
                 <Box key={c._id} display='flex' minH='3.5rem'  width='95%'
                 onClick={()=>setselectedChat(c)} textAlign='center' borderRadius='0px' backgroundColor='#203239' _active={{background:'#141E27'}}
                 _hover={{boxShadow:'1px 1px 2px #E0DDAA', width:'93%'}}
@@ -71,7 +71,7 @@ const AllChats = () => {
                     <Text fontSize='xl' fontWeight='500' color='#EEEDDE'>
                       {JSON.stringify(getReceiver(user,c.users).username).slice(1, -1)}
                     </Text>
-                    <Text fontSize='md' fontWeight='400' color='#EEEDDE'>{c.latestMessage.content}</Text>
+                    <Text fontSize='md' fontWeight='400' color='#EEEDDE'>{c.latestMessage? c.latestMessage.content : <Text color='lime'>NEW CONNECTION !!!</Text>}</Text>
                   </Box>
                   {/* FIXME: Display a red dot if notification is there for a particular chat */}
                   { (notifications.includes(c._id))? (
