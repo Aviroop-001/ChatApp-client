@@ -9,7 +9,7 @@ import io from "socket.io-client";
 import API from "../api";
 import GIF from "../assets/4UxI.gif";
 
-const endPoint = "https://aviroop-chatapp-api.herokuapp.com/";
+const endPoint = "https://radius-server.onrender.com/";
 var socket, selectedChatComp;
 
 const SingleChat = () => {
